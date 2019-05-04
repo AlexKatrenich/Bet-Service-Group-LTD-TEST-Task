@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">KatrenichTestTask</string>
+
+    <!--Main Activity-->
+    <string name="main_activity_caption">inrating.top</string>
+    <string name="button_done_main_activity">Готово</string>
+    <string name="button_refresh_main_activity">Обновить</string>
+
+    <!--Fragment Post statistics-->
+    <string name="fragment_post_statistics_caption">Статистика поста</string>
+    <string name="fragment_post_statistics_views_block">Просмотры</string>
+    <string name="fragment_post_statistics_likes_block">Лайки</string>
+    <string name="fragment_post_statistics_commentators_block">Коментаторы</string>
+    <string name="fragment_post_statistics_marks_block">Отметки</string>
+    <string name="fragment_post_statistics_repost_block">Репосты</string>
+    <string name="fragment_post_statistics_bookmark_block">Закладки</string>
+
 </resources>
