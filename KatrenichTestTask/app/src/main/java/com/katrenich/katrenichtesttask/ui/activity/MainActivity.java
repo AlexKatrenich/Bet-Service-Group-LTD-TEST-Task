@@ -1,7 +1,9 @@
-package com.katrenich.katrenichtesttask;
+package com.katrenich.katrenichtesttask.ui.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.katrenich.katrenichtesttask.R;
 
 public class MainActivity extends AppCompatActivity {
 
