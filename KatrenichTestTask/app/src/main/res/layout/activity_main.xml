@@ -19,15 +19,18 @@
         android:padding="5dp">
 
         <TextView
+            android:id="@+id/tv_toolbar_button_done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
+            android:clickable="true"
+            android:focusable="true"
             android:text="@string/button_done_main_activity"
             android:textColor="@color/toolbar_button_done_color"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:focusable="true"
-            android:clickable="true"/>
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="16dp" />
 
         <TextView
             android:id="@+id/tv_main_activity_caption"
@@ -45,10 +48,23 @@
             android:layout_gravity="end|center_vertical"
             android:background="@android:color/transparent"
             android:contentDescription="@string/button_refresh_main_activity"
-            android:src="@drawable/ic_button_back_24dp"
+            android:src="@drawable/ic_button_refresh_main_activity_toolbar"
             tools:layout_editor_absoluteX="376dp"
             tools:layout_editor_absoluteY="13dp" />
 
     </android.support.v7.widget.Toolbar>
+
+
+
+    <android.support.design.widget.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        app:menu="@menu/bottom_navigation_view_menu"
+        app:itemIconTint="@color/main_activity_navigation_view_state_colors"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+    </android.support.design.widget.BottomNavigationView>
 
 </android.support.constraint.ConstraintLayout>

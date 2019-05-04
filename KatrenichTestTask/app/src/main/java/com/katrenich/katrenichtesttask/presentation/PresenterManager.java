@@ -36,15 +36,17 @@ public class PresenterManager {
         return instance;
     }
 
-    /* метод для відновлення посилання на презентера, наприклад при втраті на нього посилання(поворот екрану, скрол в RecyclerView)*/
+    /* метод для відновлення посилання на презентер, наприклад при втраті на нього посилання(поворот екрану, скрол в RecyclerView)*/
     public <P extends BasePresenter<?, ?>> P restorePresenter(Bundle savedInstanceState){
         Long presenterId = savedInstanceState.getLong(SIS_KEY_PRESENTER_ID); // отримання Ід презентера
-        P presenter = (P) presenters.getIfPresent(presenterId); // запис посилання на об'єкт презентера
+        @SuppressWarnings("unchecked")
+        P presenter = (P) presenters.getIfPresent(presenterId);
+         // отримання презентера по ІД
         presenters.invalidate(presenterId); // оновлення Кеш-у по відповідному значенню ІД презентера, так як не використовуваний кеш з часом чититься
         return presenter;
     }
 
-    /* метод для зберігання посилання на презентера*/
+    /* метод для зберігання посилання на презентер*/
     public void savePresenter(BasePresenter<?, ?> presenter, Bundle outState){
         long presenterId = currentId.incrementAndGet(); // генерація ІД презентера
         presenters.put(presenterId, presenter); // запис посилання на об'єкт презентера в Кеш
