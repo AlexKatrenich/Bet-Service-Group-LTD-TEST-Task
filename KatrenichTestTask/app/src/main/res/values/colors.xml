@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#efefef</color>
+    <color name="colorPrimary">#bdbdbd</color>
     <color name="colorPrimaryDark">#8d8d8d</color>
-    <color name="colorAccent">#bdbdbd</color>
+    <color name="colorAccent">#efefef</color>
 
     <!--Main Text Color-->
     <color name="colorText">#000000</color>
 
     <!--Custom text colors-->
     <color name="toolbar_button_done_color">#304ffe</color>
+
+    <color name="buttons_color">#14cba8</color>
 </resources>

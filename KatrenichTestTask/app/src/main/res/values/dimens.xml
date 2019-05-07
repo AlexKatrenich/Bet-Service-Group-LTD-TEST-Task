@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--PostStatisticFragment-->
+    <dimen name="card_view_elements_left_padding">20dp</dimen>
+    <dimen name="post_statistics_elements_margin">5dp</dimen>
+
+    <dimen name="users_avatars_size_post_statistics_fragment">50dp</dimen>
+</resources>

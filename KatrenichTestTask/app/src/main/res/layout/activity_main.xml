@@ -39,7 +39,10 @@
             android:layout_gravity="center"
             android:fontFamily="@font/montserrat"
             android:text="@string/main_activity_caption"
-            android:textStyle="bold"/>
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="160dp"
+            tools:layout_editor_absoluteY="18dp" />
 
         <ImageButton
             android:id="@+id/ib_toolbar_refresh"
@@ -47,6 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
             android:background="@android:color/transparent"
+            android:layout_marginEnd="@dimen/post_statistics_elements_margin"
             android:contentDescription="@string/button_refresh_main_activity"
             android:src="@drawable/ic_button_refresh_main_activity_toolbar"
             tools:layout_editor_absoluteX="376dp"

@@ -4,16 +4,307 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/transparent">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Fragment 1"
+        android:background="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/ib_post_statistics_fragment_button_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_fragment_post_statistics_arrow_back" />
+
+        <TextView
+            android:id="@+id/tv_post_statistics_fragment_caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif"
+            android:text="@string/fragment_post_statistics_caption"
+            android:textColor="#64ffda"
+            android:textSize="24sp"
+            android:textStyle="italic" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
+
+        <!--Блок "Просмотры"-->
+        <android.support.design.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/PostStatisticsFragmentCardViewStyle">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginStart="@dimen/card_view_elements_left_padding">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_views"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/PostStatisticsFragmentBlockCaptionStyle"
+                    android:text="@string/fragment_post_statistics_views_block" />
+
+                <TextView
+                    android:id="@+id/tv_count_users_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/PostStatisticsFragmentBlockCaptionStyle"
+                    android:layout_marginEnd="@dimen/post_statistics_elements_margin"
+                    tools:text="0"
+                    />
+            </LinearLayout>
+
+
+        </android.support.design.card.MaterialCardView>
+
+        <!--Блок "Лайки"-->
+        <android.support.design.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/PostStatisticsFragmentCardViewStyle">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="@dimen/card_view_elements_left_padding">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_heart"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/PostStatisticsFragmentBlockCaptionStyle"
+                        android:text="@string/fragment_post_statistics_likes_block" />
+
+                    <TextView
+                        android:id="@+id/tv_count_users_like"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/PostStatisticsFragmentBlockCaptionStyle"
+                        android:layout_marginEnd="@dimen/post_statistics_elements_margin"
+                        tools:text="0"
+                        />
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_fragment_post_statistics_likes"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/card_view_elements_left_padding"/>
+
+            </LinearLayout>
+
+        </android.support.design.card.MaterialCardView>
+
+        <!--Блок "Коментаторы"-->
+        <android.support.design.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/PostStatisticsFragmentCardViewStyle">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="@dimen/card_view_elements_left_padding">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_comment"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/PostStatisticsFragmentBlockCaptionStyle"
+                        android:text="@string/fragment_post_statistics_commentators_block" />
+
+                    <TextView
+                        android:id="@+id/tv_count_users_comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/PostStatisticsFragmentBlockCaptionStyle"
+                        android:layout_marginEnd="@dimen/post_statistics_elements_margin"
+                        tools:text="0"
+                        />
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_fragment_post_statistics_comments"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/card_view_elements_left_padding"/>
+
+            </LinearLayout>
+
+        </android.support.design.card.MaterialCardView>
+
+        <!--Блок "Отметки"-->
+        <android.support.design.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/PostStatisticsFragmentCardViewStyle">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="@dimen/card_view_elements_left_padding">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_human_marks"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/PostStatisticsFragmentBlockCaptionStyle"
+                        android:text="@string/fragment_post_statistics_marks_block" />
+
+                    <TextView
+                        android:id="@+id/tv_count_users_mark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/PostStatisticsFragmentBlockCaptionStyle"
+                        android:layout_marginEnd="@dimen/post_statistics_elements_margin"
+                        tools:text="0"
+                        />
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_fragment_post_statistics_marks"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/card_view_elements_left_padding"/>
+
+            </LinearLayout>
+
+        </android.support.design.card.MaterialCardView>
+
+        <!--Блок "Репосты"-->
+        <android.support.design.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/PostStatisticsFragmentCardViewStyle">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginStart="@dimen/card_view_elements_left_padding">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_repost"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/PostStatisticsFragmentBlockCaptionStyle"
+                    android:text="@string/fragment_post_statistics_repost_block" />
+
+                <TextView
+                    android:id="@+id/tv_count_users_repost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/PostStatisticsFragmentBlockCaptionStyle"
+                    android:layout_marginEnd="@dimen/post_statistics_elements_margin"
+                    tools:text="0"
+                    />
+            </LinearLayout>
+        </android.support.design.card.MaterialCardView>
+
+        <!--Блок "Закладки"-->
+        <android.support.design.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/PostStatisticsFragmentCardViewStyle">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginStart="@dimen/card_view_elements_left_padding">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_bookmark"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/PostStatisticsFragmentBlockCaptionStyle"
+                    android:text="@string/fragment_post_statistics_bookmark_block" />
+
+                <TextView
+                    android:id="@+id/tv_count_users_bookmark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/PostStatisticsFragmentBlockCaptionStyle"
+                    android:layout_marginEnd="@dimen/post_statistics_elements_margin"
+                    tools:text="0"
+                    />
+            </LinearLayout>
+        </android.support.design.card.MaterialCardView>
+
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
