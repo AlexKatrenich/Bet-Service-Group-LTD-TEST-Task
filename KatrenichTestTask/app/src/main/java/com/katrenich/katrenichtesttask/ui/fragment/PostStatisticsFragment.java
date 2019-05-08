@@ -12,13 +12,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.katrenich.katrenichtesttask.R;
 import com.katrenich.katrenichtesttask.adapters.PostStatisticsRvAdapter;
 import com.katrenich.katrenichtesttask.model.data.User;
+import com.katrenich.katrenichtesttask.model.data.UserPostInfo;
 import com.katrenich.katrenichtesttask.presentation.PresenterManager;
 import com.katrenich.katrenichtesttask.presentation.presenter.PostStatisticsFragmentPresenter;
 import com.katrenich.katrenichtesttask.presentation.view.PostStatisticsView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,16 +41,34 @@ public class PostStatisticsFragment extends Fragment implements PostStatisticsVi
     private PostStatisticsFragmentPresenter mPresenter;
 
     @BindView(R.id.rv_fragment_post_statistics_likes)
-    protected RecyclerView mRvLikes;
-    private PostStatisticsRvAdapter mListLikesAdapter;
+    protected RecyclerView mRvLikes; // список прокрутки користувачів, що лайкнули пост
+    protected PostStatisticsRvAdapter mListLikesAdapter;
 
     @BindView(R.id.rv_fragment_post_statistics_comments)
-    protected RecyclerView mRvComments;
-    private PostStatisticsRvAdapter mListCommentatorsAdapter;
+    protected RecyclerView mRvComments; // список прокрутки користувачів, що прокоментували пост
+    protected PostStatisticsRvAdapter mListCommentatorsAdapter;
 
     @BindView(R.id.rv_fragment_post_statistics_marks)
-    protected RecyclerView mRvMarks;
-    private PostStatisticsRvAdapter mListMarksAdapter;
+    protected RecyclerView mRvMarks; // список прокрутки користувачів, що відмічені в пості
+    protected PostStatisticsRvAdapter mListMarksAdapter;
+
+    @BindView(R.id.tv_count_users_view)
+    protected TextView usersViewCount;
+
+    @BindView(R.id.tv_count_users_like)
+    protected TextView usersLikesCount;
+
+    @BindView(R.id.tv_count_users_repost)
+    protected TextView repostCount;
+
+    @BindView(R.id.tv_count_users_comment)
+    protected TextView postCommentatorsCount;
+
+    @BindView(R.id.tv_count_users_bookmark)
+    protected TextView bookmarksCount;
+
+    @BindView(R.id.tv_count_users_mark)
+    protected TextView conutMentionedUsers;
 
     @Nullable
     @Override
@@ -119,6 +141,18 @@ public class PostStatisticsFragment extends Fragment implements PostStatisticsVi
     }
 
     @Override
+    public void onDestroy() {
+        // обнулення посилань
+        mRvMarks.setLayoutManager(null);
+        mRvMarks.setAdapter(null);
+        mRvComments.setLayoutManager(null);
+        mRvComments.setAdapter(null);
+        mRvLikes.setAdapter(null);
+        mRvLikes.setLayoutManager(null);
+        super.onDestroy();
+    }
+
+    @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         PresenterManager.getInstance().savePresenter(mPresenter, outState);
@@ -140,5 +174,16 @@ public class PostStatisticsFragment extends Fragment implements PostStatisticsVi
     public void showMarksList(List<User> marks) {
         Log.i(TAG, "showMarksList: " + marks);
         mListMarksAdapter.clearAndAddAll(marks);
+    }
+
+    @Override
+    public void showMainInfo(UserPostInfo postInfo) {
+        // відображення значень з моделі даних в UI
+        usersViewCount.setText(String.valueOf(postInfo.getViewsCount()));
+        usersLikesCount.setText(String.valueOf(postInfo.getLikesCount()));
+        postCommentatorsCount.setText(String.valueOf(postInfo.getCommentatorsCount()));
+        repostCount.setText(String.valueOf(postInfo.getRepostsCount()));
+        bookmarksCount.setText(String.valueOf(postInfo.getBookmarksCount()));
+        conutMentionedUsers.setText(String.valueOf(postInfo.getMentionedUserCount()));
     }
 }

@@ -132,6 +132,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
         super.onStop();
     }
 
+    @Override
+    protected void onDestroy() {
+        // обнулення посилань
+        mNavigationView.setOnNavigationItemSelectedListener(null);
+        super.onDestroy();
+    }
+
     @OnClick(R.id.ib_toolbar_refresh)
     public void onRefreshButtonClicked(){
         //TODO реалізація обробки кліку по кнопці

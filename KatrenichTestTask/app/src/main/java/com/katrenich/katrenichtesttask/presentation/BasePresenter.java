@@ -1,9 +1,12 @@
 package com.katrenich.katrenichtesttask.presentation;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
+
 import java.lang.ref.WeakReference;
 
 public abstract class BasePresenter<M, V>{
+    public static final String TAG = "BasePresenter";
     protected M model;
     private WeakReference<V> view;
 
@@ -21,6 +24,7 @@ public abstract class BasePresenter<M, V>{
         if(setupDone()){
             updateView();
         }
+        Log.i(TAG, "bindView: ");
     }
 
     /* метод для відкріплення посилання на View*/
