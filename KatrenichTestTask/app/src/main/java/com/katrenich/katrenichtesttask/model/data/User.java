@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import java.util.Objects;
 
 public class User {
+    private int userID;
 
     private String nickName;
 
@@ -14,7 +15,7 @@ public class User {
         this.nickName = nickName;
     }
 
-    public User(String name, Bitmap userAvatar) {
+    public User(String nickName, Bitmap userAvatar) {
         this.nickName = nickName;
         this.userAvatar = userAvatar;
     }

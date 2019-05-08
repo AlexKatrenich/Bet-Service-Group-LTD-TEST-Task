@@ -5,9 +5,13 @@ import android.util.Log;
 
 import com.katrenich.katrenichtesttask.model.data.UserPostInfo;
 import com.katrenich.katrenichtesttask.model.network.NetworkService;
-import com.katrenich.katrenichtesttask.model.network.user_post_statistics.UserPostInfoPOJO;
+import com.katrenich.katrenichtesttask.model.network.user_post_statistics.PostInfoWrapper;
+import com.katrenich.katrenichtesttask.model.network.user_post_statistics.PostLikersList;
+import com.katrenich.katrenichtesttask.model.network.user_post_statistics.UserWrapper;
 import com.katrenich.katrenichtesttask.presentation.BasePresenter;
 import com.katrenich.katrenichtesttask.presentation.view.PostStatisticsView;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,11 +37,11 @@ public class PostStatisticsFragmentPresenter extends BasePresenter<UserPostInfo,
         NetworkService.getInstance()
                 .getUserPostInfoJSON()
                 .getUserPostInfoBySlug("AhA7JKV89m6P")
-                .enqueue(new Callback<UserPostInfoPOJO>() {
+                .enqueue(new Callback<PostInfoWrapper>() {
                     @Override
-                    public void onResponse(Call<UserPostInfoPOJO> call, Response<UserPostInfoPOJO> response) {
+                    public void onResponse(Call<PostInfoWrapper> call, Response<PostInfoWrapper> response) {
                         if (response.isSuccessful()){
-                            UserPostInfoPOJO postStatistics = response.body();
+                            PostInfoWrapper postStatistics = response.body();
                             Log.i(TAG, "onResponse: " + postStatistics);
                             try {
                                 UserPostInfo postInfo = new UserPostInfo(
@@ -60,11 +64,36 @@ public class PostStatisticsFragmentPresenter extends BasePresenter<UserPostInfo,
                     }
 
                     @Override
-                    public void onFailure(Call<UserPostInfoPOJO> call, Throwable t) {
+                    public void onFailure(Call<PostInfoWrapper> call, Throwable t) {
                         Log.i(TAG, "onFailure: " + t.getMessage());
                     }
                 });
 
         // Отримання інформації
     }
+
+    public void onBackButtonClicked() {
+        // TODO реалізація бізнес-логіки
+//        view().showMessage("Back-button was clicked");
+
+        NetworkService.getInstance().getUserPostInfoJSON()
+                .getUserPostLikersInfoById(6825)
+                .enqueue(new Callback<PostLikersList>() {
+                    @Override
+                    public void onResponse(Call<PostLikersList> call, Response<PostLikersList> response) {
+                        if (response.isSuccessful()){
+                            PostLikersList postLikersList = response.body();
+                            if(postLikersList.getData() != null) Log.i(TAG, "onResponse: " + postLikersList.getData());
+                        } else {
+                            Log.i(TAG, "onResponse: is not successful" + response.message());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<PostLikersList> call, Throwable t) {
+                        Log.i(TAG, "onFailure: " + t.getMessage());
+                    }
+                });
+    }
+
 }

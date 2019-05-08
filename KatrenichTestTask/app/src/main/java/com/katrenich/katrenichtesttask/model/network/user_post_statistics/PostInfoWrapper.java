@@ -3,7 +3,7 @@ package com.katrenich.katrenichtesttask.model.network.user_post_statistics;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class UserPostInfoPOJO {
+public class PostInfoWrapper {
 
     @SerializedName("id")
     @Expose
@@ -85,7 +85,7 @@ public class UserPostInfoPOJO {
 
     @Override
     public String toString() {
-        return "UserPostInfoPOJO{" +
+        return "PostInfoWrapper{" +
                 "id='" + id + '\'' +
                 ", slug='" + slug + '\'' +
                 ", commentsCount='" + commentsCount + '\'' +

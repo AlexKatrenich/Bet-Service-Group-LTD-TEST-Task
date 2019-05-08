@@ -15,9 +15,14 @@ public interface PostStatisticsView {
     // метод для відображення списку користувачів, що були відмічені в пості
     void showMarksList(List<User> marks);
 
+    // метод для відображення списку користувачів, що додали пост в закладки
+    void showBookmarksList(List<User> bookmarks);
+
     /* метод для відображення основної інформації про пост користувача
        * ІД, slug
        * кількість користувачів, що лайкнули, додали в закладки, прокоментували, переглянули, зарепостили
      */
     void showMainInfo(UserPostInfo model);
+
+    void showMessage(String message);
 }

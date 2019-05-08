@@ -141,14 +141,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
 
     @OnClick(R.id.ib_toolbar_refresh)
     public void onRefreshButtonClicked(){
-        //TODO реалізація обробки кліку по кнопці
-        showMessage("On refresh button clicked");
+        mPresenter.onRefreshButtonClicked();
     }
 
     @OnClick(R.id.tv_toolbar_button_done)
     public void onDoneButtonClicked(){
-        //TODO реалізація обробки кліку по кнопці
-        showMessage("On done button clicked");
+        mPresenter.onDoneButtonClicked();
     }
 
     @Override

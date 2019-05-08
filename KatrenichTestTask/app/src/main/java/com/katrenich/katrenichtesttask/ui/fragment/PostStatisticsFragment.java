@@ -9,10 +9,12 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.katrenich.katrenichtesttask.R;
 import com.katrenich.katrenichtesttask.adapters.PostStatisticsRvAdapter;
@@ -22,13 +24,12 @@ import com.katrenich.katrenichtesttask.presentation.PresenterManager;
 import com.katrenich.katrenichtesttask.presentation.presenter.PostStatisticsFragmentPresenter;
 import com.katrenich.katrenichtesttask.presentation.view.PostStatisticsView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /* Клас відображає на екрані першу вкладку BottomNavigationView головного екрану
  * Фрагмент повинен відображати інформацію про статистику обраного посту на сайті 'inrating.top'
@@ -51,6 +52,10 @@ public class PostStatisticsFragment extends Fragment implements PostStatisticsVi
     @BindView(R.id.rv_fragment_post_statistics_marks)
     protected RecyclerView mRvMarks; // список прокрутки користувачів, що відмічені в пості
     protected PostStatisticsRvAdapter mListMarksAdapter;
+
+    @BindView(R.id.rv_fragment_post_statistics_bookmarks)
+    protected RecyclerView mRvBookmarks; // список користувачів, що додали пост в закладки
+    protected PostStatisticsRvAdapter mListBookmarksAdapter;
 
     @BindView(R.id.tv_count_users_view)
     protected TextView usersViewCount;
@@ -105,25 +110,39 @@ public class PostStatisticsFragment extends Fragment implements PostStatisticsVi
         mRvMarks.setAdapter(mListMarksAdapter);
         mRvMarks.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false));
 
+        // Блок закладок
+        mListBookmarksAdapter = new PostStatisticsRvAdapter();
+        mRvBookmarks.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false));
+        mRvBookmarks.setAdapter(mListBookmarksAdapter);
+
         /*--------------TEST------------*/
         Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.picture_no_photo_aviable);
         ArrayList<User> users = new ArrayList<>();
-        users.add(new User("Stefani", bm));
-        users.add(new User("Adam", bm));
+        Log.i(TAG, "init: " + users);
         users.add(new User("Alex", bm));
         users.add(new User("Jersi", bm));
         users.add(new User("Tupish", bm));
         showLikesList(users);
 
+        users.add(new User("Stefani", bm));
+        users.add(new User("Adam", bm));
+        users.add(new User("Alex", bm));
+        users.add(new User("Jersi", bm));
+        users.add(new User("Tupish", bm));
         users.remove(1);
         users.remove(2);
+        Log.i(TAG, "init: " + users);
         showCommentatorsList(users);
+
 
         users.add(new User("Pamella", bm));
         users.add(new User("Perkamur", bm));
         users.add(new User("Alesya", bm));
         users.add(new User("Olga", bm));
+        Log.i(TAG, "init: " + users);
         showMarksList(users);
+
+        showBookmarksList(users);
         /*-----------END TEST-----------*/
 
     }
@@ -149,6 +168,8 @@ public class PostStatisticsFragment extends Fragment implements PostStatisticsVi
         mRvComments.setAdapter(null);
         mRvLikes.setAdapter(null);
         mRvLikes.setLayoutManager(null);
+        mRvBookmarks.setLayoutManager(null);
+        mRvBookmarks.setAdapter(null);
         super.onDestroy();
     }
 
@@ -158,22 +179,70 @@ public class PostStatisticsFragment extends Fragment implements PostStatisticsVi
         PresenterManager.getInstance().savePresenter(mPresenter, outState);
     }
 
+    @OnClick(R.id.ib_post_statistics_fragment_button_back)
+    public void onBackButtonClicked(){
+        mPresenter.onBackButtonClicked();
+    }
+
     @Override
     public void showLikesList(List<User> likes) {
-        Log.d(TAG, "showLikesList: " + likes);
-        mListLikesAdapter.clearAndAddAll(likes);
+        ViewGroup.LayoutParams params = mRvLikes.getLayoutParams();
+        if (likes.size() > 0) {
+            Log.d(TAG, "showLikesList: " + likes);
+            mListLikesAdapter.clearAndAddAll(likes);
+            params.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,
+                    getResources().getDimension(R.dimen.recycler_view_post_statistics_height),
+                    getResources().getDisplayMetrics());
+        } else {
+            params.height = 0;
+        }
+
+        mRvLikes.setLayoutParams(params);
     }
 
     @Override
     public void showCommentatorsList(List<User> commentators) {
-        Log.i(TAG, "showCommentatorsList: " + commentators);
-        mListCommentatorsAdapter.clearAndAddAll(commentators);
+        ViewGroup.LayoutParams params = mRvComments.getLayoutParams();
+        if(commentators.size() > 0) {
+            Log.i(TAG, "showCommentatorsList: " + commentators);
+            mListCommentatorsAdapter.clearAndAddAll(commentators);
+            params.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,
+                    getResources().getDimension(R.dimen.recycler_view_post_statistics_height),
+                    getResources().getDisplayMetrics());
+        } else {
+            params.height = 0;
+        }
+        mRvComments.setLayoutParams(params);
     }
 
     @Override
     public void showMarksList(List<User> marks) {
-        Log.i(TAG, "showMarksList: " + marks);
-        mListMarksAdapter.clearAndAddAll(marks);
+        ViewGroup.LayoutParams params = mRvMarks.getLayoutParams();
+        if (marks.size() > 0){
+            Log.i(TAG, "showMarksList: " + marks);
+            mListMarksAdapter.clearAndAddAll(marks);
+            params.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,
+                    getResources().getDimension(R.dimen.recycler_view_post_statistics_height),
+                    getResources().getDisplayMetrics());
+        } else {
+            params.height = 0;
+        }
+        mRvMarks.setLayoutParams(params);
+    }
+
+    @Override
+    public void showBookmarksList(List<User> bookmarks) {
+        ViewGroup.LayoutParams params = mRvBookmarks.getLayoutParams();
+        if(bookmarks.size() > 0){
+            Log.i(TAG, "showBookmarksList: " + bookmarks);
+            mListBookmarksAdapter.clearAndAddAll(bookmarks);
+            params.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,
+                    getResources().getDimension(R.dimen.recycler_view_post_statistics_height),
+                    getResources().getDisplayMetrics());
+        } else {
+            params.height = 0;
+        }
+        mRvBookmarks.setLayoutParams(params);
     }
 
     @Override
@@ -185,5 +254,10 @@ public class PostStatisticsFragment extends Fragment implements PostStatisticsVi
         repostCount.setText(String.valueOf(postInfo.getRepostsCount()));
         bookmarksCount.setText(String.valueOf(postInfo.getBookmarksCount()));
         conutMentionedUsers.setText(String.valueOf(postInfo.getMentionedUserCount()));
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }
