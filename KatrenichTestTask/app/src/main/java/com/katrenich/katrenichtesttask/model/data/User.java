@@ -6,7 +6,7 @@ public class User {
 
     private String nickName;
 
-    private String userAvatarImageURL;
+    private String userAvatarImageURL; // змінна відображає адресу посилання на зображення аватару користувача
 
     public User(String nickName) {
         this.nickName = nickName;

@@ -1,7 +1,7 @@
 package com.katrenich.katrenichtesttask.model.network;
 
-import com.katrenich.katrenichtesttask.model.network.user_post_statistics.PostInfoWrapper;
-import com.katrenich.katrenichtesttask.model.network.user_post_statistics.PostUsersList;
+import com.katrenich.katrenichtesttask.model.network.user_post_info.PostInfoWrapper;
+import com.katrenich.katrenichtesttask.model.network.user_post_info.PostUsersList;
 
 import retrofit2.Call;
 import retrofit2.http.Headers;

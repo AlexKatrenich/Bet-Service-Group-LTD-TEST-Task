@@ -51,7 +51,7 @@ public class PostInfo {
     public void setPostBookmarksCount(int postBookmarksCount) {
         this.postBookmarksCount = postBookmarksCount;
     }
-
+    @Nullable
     public List<User> getPostLikersList() {
         return postLikersList;
     }
@@ -60,6 +60,7 @@ public class PostInfo {
         this.postLikersList = postLikersList;
     }
 
+    @Nullable
     public List<User> getPostCommentatorsList() {
         return postCommentatorsList;
     }
@@ -68,6 +69,7 @@ public class PostInfo {
         this.postCommentatorsList = postCommentatorsList;
     }
 
+    @Nullable
     public List<User> getMentionedUsersList() {
         return MentionedUsersList;
     }
@@ -76,6 +78,7 @@ public class PostInfo {
         MentionedUsersList = mentionedUsersList;
     }
 
+    @Nullable
     public List<User> getRepostUsersList() {
         return repostUsersList;
     }

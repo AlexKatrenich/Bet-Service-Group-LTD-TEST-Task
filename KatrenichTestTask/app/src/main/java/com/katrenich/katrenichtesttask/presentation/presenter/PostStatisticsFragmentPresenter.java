@@ -1,13 +1,14 @@
 package com.katrenich.katrenichtesttask.presentation.presenter;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.katrenich.katrenichtesttask.model.data.User;
 import com.katrenich.katrenichtesttask.model.data.PostInfo;
 import com.katrenich.katrenichtesttask.model.network.NetworkService;
-import com.katrenich.katrenichtesttask.model.network.user_post_statistics.PostInfoWrapper;
-import com.katrenich.katrenichtesttask.model.network.user_post_statistics.PostUsersList;
-import com.katrenich.katrenichtesttask.model.network.user_post_statistics.UserWrapper;
+import com.katrenich.katrenichtesttask.model.network.user_post_info.PostInfoWrapper;
+import com.katrenich.katrenichtesttask.model.network.user_post_info.PostUsersList;
+import com.katrenich.katrenichtesttask.model.network.user_post_info.UserWrapper;
 import com.katrenich.katrenichtesttask.presentation.BasePresenter;
 import com.katrenich.katrenichtesttask.presentation.view.PostStatisticsView;
 
@@ -38,6 +39,12 @@ public class PostStatisticsFragmentPresenter extends BasePresenter<PostInfo, Pos
         }
     }
 
+    @Override
+    public void bindView(@NonNull PostStatisticsView view) {
+        super.bindView(view);
+        getPostDataByID(134294);
+    }
+
     // метод для отримання додаткової інфорації про пост: Кількість переглядів та Закладок
     private void getPostInfoByID(Integer id) {
         if (id == null) {
@@ -59,7 +66,8 @@ public class PostStatisticsFragmentPresenter extends BasePresenter<PostInfo, Pos
                                 model.setPostId(postStatistics.getId());
                                 model.setPostBookmarksCount(postStatistics.getBookmarksCount());
                                 model.setPostViewsCount(postStatistics.getViewsCount());
-                                updateView();
+                                view().showCountViews(model.getPostViewsCount());
+                                view().showCountBookmarks(model.getPostBookmarksCount());
                             } catch (NullPointerException e){
                                 Log.i(TAG, "onResponse: " + e.getMessage());
                             }
@@ -95,7 +103,7 @@ public class PostStatisticsFragmentPresenter extends BasePresenter<PostInfo, Pos
                                 }
                                 Log.i(TAG, "onResponse USERS:" + list + " " + setupDone());
                                 model.setPostLikersList(list);
-                                updateView();
+                                if (setupDone()) view().showLikesList(list);
                             }
                         } else {
                             Log.i(TAG, "onResponse: is not successful" + response.message());
@@ -109,6 +117,7 @@ public class PostStatisticsFragmentPresenter extends BasePresenter<PostInfo, Pos
                 });
     }
 
+    // метод для отримання інформації про користувачів, що прокоментували пост
     private void getCommentatorsInfo(int postID){
         NetworkService.getInstance().getUserPostInfoJSON()
                 .getUserPostCommentatorsById(postID)
@@ -127,7 +136,7 @@ public class PostStatisticsFragmentPresenter extends BasePresenter<PostInfo, Pos
                                 }
                                 Log.i(TAG, "onResponse USERS:" + list + " " + setupDone());
                                 model.setPostCommentatorsList(list);
-                                updateView();
+                                if (setupDone()) view().showCommentatorsList(list);
                             }
                         } else {
                             Log.i(TAG, "onResponse: is not successful" + response.message());
@@ -141,6 +150,7 @@ public class PostStatisticsFragmentPresenter extends BasePresenter<PostInfo, Pos
                 });
     }
 
+    // метод для отримання інформації про користувачів, що зробили репост
     private void getRepostsInfo(int postID){
         NetworkService.getInstance().getUserPostInfoJSON()
                 .getUserPostRepostersById(postID)
@@ -159,7 +169,7 @@ public class PostStatisticsFragmentPresenter extends BasePresenter<PostInfo, Pos
                                 }
                                 Log.i(TAG, "onResponse USERS:" + list + " " + setupDone());
                                 model.setRepostUsersList(list);
-                                updateView();
+                                if (setupDone()) view().showRepostersList(list);
                             }
                         } else {
                             Log.i(TAG, "onResponse: is not successful" + response.message());
@@ -173,6 +183,7 @@ public class PostStatisticsFragmentPresenter extends BasePresenter<PostInfo, Pos
                 });
     }
 
+    // метод для отримання інформації про користувачів, що відмічені в пості
     private void getMentionedUsersInfo(int postID){
         NetworkService.getInstance().getUserPostInfoJSON()
                 .getMentionedUsersById(postID)
@@ -191,7 +202,7 @@ public class PostStatisticsFragmentPresenter extends BasePresenter<PostInfo, Pos
                                 }
                                 Log.i(TAG, "onResponse USERS:" + list + " " + setupDone());
                                 model.setMentionedUsersList(list);
-                                updateView();
+                                if (setupDone()) view().showMentionedList(list);
                             }
                         } else {
                             Log.i(TAG, "onResponse: is not successful" + response.message());
@@ -207,11 +218,10 @@ public class PostStatisticsFragmentPresenter extends BasePresenter<PostInfo, Pos
 
     public void onBackButtonClicked() {
         // TODO реалізація бізнес-логіки
-        getPostDataByID(134294);
         view().showMessage("Button back was clicked");
     }
 
-    // метод створений для тестування та виклику з UI
+    // метод створений для виклику в
     private void getPostDataByID(int id){
         getPostInfoByID(id);
         getPostLikersInfo(id);

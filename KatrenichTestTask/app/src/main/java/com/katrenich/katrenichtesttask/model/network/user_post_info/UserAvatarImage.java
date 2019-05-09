@@ -1,4 +1,4 @@
-package com.katrenich.katrenichtesttask.model.network.user_post_statistics;
+package com.katrenich.katrenichtesttask.model.network.user_post_info;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

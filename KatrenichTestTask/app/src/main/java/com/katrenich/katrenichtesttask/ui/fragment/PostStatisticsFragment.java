@@ -1,21 +1,17 @@
 package com.katrenich.katrenichtesttask.ui.fragment;
 
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.InputType;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +22,6 @@ import com.katrenich.katrenichtesttask.presentation.PresenterManager;
 import com.katrenich.katrenichtesttask.presentation.presenter.PostStatisticsFragmentPresenter;
 import com.katrenich.katrenichtesttask.presentation.view.PostStatisticsView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -75,7 +70,7 @@ public class PostStatisticsFragment extends Fragment implements PostStatisticsVi
     protected TextView bookmarksCount;
 
     @BindView(R.id.tv_count_users_mark)
-    protected TextView conutMentionedUsers;
+    protected TextView countMentionedUsers;
 
     @Nullable
     @Override
@@ -123,33 +118,35 @@ public class PostStatisticsFragment extends Fragment implements PostStatisticsVi
 
     @Override
     public void onStart() {
-        Log.e(TAG, "onStart: ");
+        Log.e(TAG, "onStart: " + this);
         mPresenter.bindView(this);
         super.onStart();
     }
 
     @Override
     public void onResume() {
-        Log.e(TAG, "onResume: ");
+        Log.e(TAG, "onResume: " + this);
         mPresenter.viewStatusResume();
         super.onResume();
     }
 
     @Override
     public void onPause() {
-        Log.e(TAG, "onPause: ");
+        Log.e(TAG, "onPause: " + this);
         super.onPause();
     }
 
     @Override
     public void onStop() {
-        Log.e(TAG, "onStop: ");
-        super.onStop();
+        Log.e(TAG, "onStop: " + this);
         mPresenter.unbindView();
+        super.onStop();
+
     }
 
     @Override
     public void onDestroy() {
+        Log.e(TAG, "onDestroy: " + this);
         // обнулення посилань
         mRvMentioned.setLayoutManager(null);
         mRvMentioned.setAdapter(null);
@@ -204,7 +201,7 @@ public class PostStatisticsFragment extends Fragment implements PostStatisticsVi
     public void showLikesList(List<User> list) {
         ViewGroup.LayoutParams params = mRvLikes.getLayoutParams();
         if (list.size() > 0) {
-            Log.d(TAG, "showLikesList: " + list);
+            Log.i(TAG, "showLikesList: " + list);
             mListLikesAdapter.clearAndAddAll(list);
             params.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,
                     getResources().getDimension(R.dimen.recycler_view_post_statistics_height),
@@ -245,7 +242,7 @@ public class PostStatisticsFragment extends Fragment implements PostStatisticsVi
         } else {
             params.height = 0;
         }
-        conutMentionedUsers.setText(String.valueOf(list.size()));
+        countMentionedUsers.setText(String.valueOf(list.size()));
         mRvMentioned.setLayoutParams(params);
     }
 
