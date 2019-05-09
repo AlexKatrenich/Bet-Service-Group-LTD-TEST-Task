@@ -1,6 +1,7 @@
 package com.katrenich.katrenichtesttask.presentation;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.lang.ref.WeakReference;
@@ -33,6 +34,7 @@ public abstract class BasePresenter<M, V>{
     }
 
     /* метод для отримання посилання на View якщо вона не знищена GarbageCollector*/
+    @Nullable
     protected V view() {
         if (view == null) {
             return null;

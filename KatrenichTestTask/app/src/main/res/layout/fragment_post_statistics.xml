@@ -246,6 +246,11 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/card_view_elements_left_padding"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -269,6 +274,15 @@
                         android:layout_marginEnd="@dimen/post_statistics_elements_margin"
                         tools:text="0" />
                 </LinearLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_fragment_post_repost_users"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="@dimen/card_view_elements_left_padding"
+                        android:orientation="horizontal" />
+
+                </LinearLayout>
             </android.support.design.card.MaterialCardView>
 
             <!--Блок "Закладки"-->
@@ -278,11 +292,6 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/card_view_elements_left_padding"
@@ -308,15 +317,6 @@
                             android:layout_marginEnd="@dimen/post_statistics_elements_margin"
                             tools:text="0" />
                     </LinearLayout>
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rv_fragment_post_statistics_bookmarks"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_marginStart="@dimen/card_view_elements_left_padding"
-                        android:orientation="horizontal" />
-
-                </LinearLayout>
 
             </android.support.design.card.MaterialCardView>
 

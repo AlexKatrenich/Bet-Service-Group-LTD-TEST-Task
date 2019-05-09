@@ -9,7 +9,7 @@ public class PostStatisticsUsersViewHolderPresenter extends BasePresenter<User, 
 
     @Override
     protected void updateView() {
-        view().setUserAvatar(model.getUserAvatar());
+        view().setUserAvatar(model.getUserAvatarImageURL());
         view().setUserName(model.getName());
     }
 }

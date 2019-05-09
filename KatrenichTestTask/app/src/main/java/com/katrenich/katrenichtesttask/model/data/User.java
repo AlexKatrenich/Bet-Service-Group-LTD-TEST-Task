@@ -1,23 +1,20 @@
 package com.katrenich.katrenichtesttask.model.data;
 
-import android.graphics.Bitmap;
-
 import java.util.Objects;
 
 public class User {
-    private int userID;
 
     private String nickName;
 
-    private Bitmap userAvatar;
+    private String userAvatarImageURL;
 
     public User(String nickName) {
         this.nickName = nickName;
     }
 
-    public User(String nickName, Bitmap userAvatar) {
+    public User(String nickName, String userAvatarImageURL) {
         this.nickName = nickName;
-        this.userAvatar = userAvatar;
+        this.userAvatarImageURL = userAvatarImageURL;
     }
 
     public String getName() {
@@ -28,12 +25,12 @@ public class User {
         this.nickName = nickName;
     }
 
-    public Bitmap getUserAvatar() {
-        return userAvatar;
+    public String getUserAvatarImageURL() {
+        return userAvatarImageURL;
     }
 
-    public void setUserAvatar(Bitmap userAvatar) {
-        this.userAvatar = userAvatar;
+    public void setUserAvatarImageURL(String userAvatarImageURL) {
+        this.userAvatarImageURL = userAvatarImageURL;
     }
 
     @Override

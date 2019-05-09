@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class PostLikersList {
+public class PostUsersList {
     @SerializedName("data")
     @Expose
     private List<UserWrapper> data = null;

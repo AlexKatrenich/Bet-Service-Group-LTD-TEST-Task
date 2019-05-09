@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements MainActivityView {
+    public static final String TAG = "MainActivity";
 
     private static final String TAG_SAVE_INSTANCE_STATE_BOTTOM_NAVIGATION = "INSTANCE_STATE_BOTTOM_NAVIGATION";
 
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e(TAG, "onCreate: ");
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         init(savedInstanceState);
@@ -99,12 +102,14 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
 
     @Override
     protected void onStart() {
+        Log.e(TAG, "onStart: ");
         mPresenter.bindView(this); // закріплення презентера
         super.onStart();
     }
 
     @Override
     protected void onResume() {
+        Log.e(TAG, "onResume: ");
         if(bnvSelectedItemId != 0 ){
             mNavigationView.setSelectedItemId(bnvSelectedItemId);
         }
@@ -113,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
 
     @Override
     protected void onPause() {
+        Log.e(TAG, "onPause: ");
         bnvSelectedItemId = mNavigationView.getSelectedItemId();
         super.onPause();
     }
@@ -128,12 +134,14 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
 
     @Override
     protected void onStop() {
+        Log.e(TAG, "onStop: ");
         mPresenter.unbindView();
         super.onStop();
     }
 
     @Override
     protected void onDestroy() {
+        Log.e(TAG, "onDestroy: ");
         // обнулення посилань
         mNavigationView.setOnNavigationItemSelectedListener(null);
         super.onDestroy();
